@@ -28,7 +28,7 @@ Below is a breakdown of a single HTTP packet and how it maps to each OSI layer:
 
 |**Wireshark**<br>**Layer**|**OSI Layer**|**Description**|
 |---|---|---|
-|Frame|Layer 1 –<br>Physical|**Represents raw transmission of bits over the network**<br>**interface**<br>Frame 22331: 501 bytes on wire (4008 bits), 501 bytes captured<br>(4008 bits) on interface \Device\NPF_{DE51CB05-44BD-4934-<br>A0E1-E74DA3A6A843}, id 0|
+|Frame|Layer 1 –<br>Physical|**Represents raw transmission of bits over the network**<br>**interface**<br>Fcreaterame 22331: 501 bytes on wire (4008 bits), 501 bytes captured<br>(4008 bits) on interface \Device\NPF_{DE51CB05-44BD-4934-<br>A0E1-E74DA3A6A843}, id 0|
 |||**Contains MAC addresses used for local network delivery**|
 |Ethernet II|Layer 2 –<br>Data Link|Ethernet II, Src: Intel_fe:d0:21 (5c:e4:2a:fe:d0:21), Dst:<br>SkyUk_60:dc:01 (b4:ba:9d:60:dc:01)|
 |||**Handles logical addressing and routing via IP addresses**|
@@ -42,7 +42,7 @@ Below is a breakdown of a single HTTP packet and how it maps to each OSI layer:
 |Transmission<br>Control Protocol|Layer 4 –<br>Transport|Transmission Control Protocol, Src Port: 59164, Dst Port: 80,<br>Seq: 1, Ack: 1, Len: 427|
 |Hypertext<br>Transfer<br>Protocol|Layer 7 –<br>Application|**Contains the actual data (e.g., an HTTP GET request)**<br>**requested by the user**<br>Hypertext Transfer Protocol|
 
-
+![screenshot of wireshark package capture](images/wireshark.png)
 
 ## **Reflection** 
 
@@ -99,6 +99,7 @@ OSI Model Explanation: Packets travel back via Network (IP), Data Link (MAC/Ethe
 Data is interpreted and displayed; you see the YouTube homepage fully loaded 
 
 OSI Model Explanation: Browser interprets and displays the content — pure Application Layer 
+
 
 # Lab 2 – VLSM Lab 
 
@@ -193,6 +194,7 @@ This method is called VLSM (Variable Length Subnet Masking) — it lets you assi
 
 Subnetting is a core networking skill that transforms how networks are designed, scaled, and secured. With CIDR and VLSM, you gain precision, efficiency, and full control over your IP space. 
 
+
 # Lab 3 – Subnetting and IP Addressing 
 
 ## **Lab Write-up: Troubleshooting and Resolving IP Conflicts** 
@@ -259,7 +261,8 @@ write memory
 
 - The network became stable with **no packet loss** , confirming that the conflict was the source of the issue. 
 
-Lab 4 – VLANs and Trunking with Cisco 2960 Home Lab 
+# Lab 4 Portfolio Entry – VLANs and Trunking with Cisco 2960 Home Lab 
+
 
 ## **Objective:** 
 
@@ -284,21 +287,22 @@ Switch(config) _# hostname Switch1_
 Create VLANs 10 (STAFF) and VLAN 20 (STUDENTS): 
 
 Keynote: 
+![image displaying issues with identifying interface](images/interface-name.png)
 
 Here I was creating a VLAN 10 and 20 both switches. While doing this with the first Switch. I was using the correct interface name – the switch is case sensitive. 
-
+![screenshot](images/show-ip-interface-brief.png)
 Used the above command to find the correct names of the Interfaces. 
-
+![screenshot](images/interfaces.png)
 ## **<u>Assign Access Ports</u>** 
 
 Assigned GigabitEthernet1/0/24 to VLAN 10 as access port 
-
+![screenshot](images/access-ports.png)
 ## **<u>Configure Trunk Port</u>** 
 
 Configured trunk on GigabitEthernet1/0/1 
 
 Keynote: 
-
+![screenshot](images/trunk-encapsulation.png)
 Here I attempted to assign an access port. However, my Cisco 2960 Switches do not support switchport trunk encapsulation dot1q as it only supports  dot1q, as seen above. 
 
 So I left out that line. Actual input: 
@@ -312,7 +316,13 @@ interface GigabitEthernet1/0/24
 switchport mode trunk 
 
 Output which PuTTY displayed after 
+![screenshot](images/encapsulation-1.png
+)
+![screenshot](images/encapsulation-2.png)
 
+![screenshot](images/encapsulation-3.png)
+
+![screenshot](images/encapsulation-4.png)
 Had to press Enter a few times before I could access the Switch1 to _show interface trunk_ . 
 
 The Enter input showed the active and working interfaces. Here is a quick summary: 
@@ -384,7 +394,7 @@ The Enter input showed the active and working interfaces. Here is a quick summar
 - Assigned GigabitEthernet1/0/2 to VLAN 20 
 
 - Configured trunk on GigabitEthernet1/0/1 
-
+![screenshot](images/trunking.png)
 ## **PC IP Assignment** 
 
 - PC0 (VLAN 10): 192.168.10.10 /24 
@@ -401,10 +411,16 @@ The Enter input showed the active and working interfaces. Here is a quick summar
 
 - Ping from PC1 to VLAN 20 (itself): **Successful** 
 
+![screenshot](images/ping-PC1-to-PC0.png)
+
 ## **Verified VLANs for both Switches** 
+![screenshot](images/switch-1-vlan-brief.png)
 
+![screenshot](images/switch-2-vlan-brief.png)
 ## **Verified Trunks for both Switches** 
-
+![screenshot](images/switch-1-trunk.png)
+ 
+![screenshot](images/switch-2-trunk.png)
 ## **MAC Address Table** 
 
 This shows dynamic MAC entries associated with their ports/VLANs. As you can see there are a different number of MAC addresses across both Switches so I will verify to see if VLAN 20 is configured correctly on Switch 2. 
@@ -426,6 +442,14 @@ Confirmation: Verification successful.
 - Differences explained by traffic patterns and MAC aging 
 
 Reasoning for why there are different numbers on the mac address-tables between switches 
+ 
+![screenshot](images/dynamic-mac-address.png)
+
+ 
+![screenshot](images/switch-1-mac-table.png)
+
+![screenshot](images/switch-2-mac-table.png)
+
 
 # Lab 5: Lab Name: Basic Switch & PC Connectivity 
 
@@ -455,21 +479,24 @@ To demonstrate an understanding of switch setup, interface configuration, and PC
 
 - Gained hands-on experience with CLI navigation, basic switch commands, and packet testing. 
 
-## Today I: 
+![screenshot](images/packet-tracer.png)
 
+## Today I: 
 - 1) Connected two PCs (end devices) with a copper straight-through cable to a switch each PC0 > FastEthernet0/1 on Switch 0 PC1 > FastEthernet0/24 on Switch 1 
 
 Used a copper crossover cable to connect the two Switches together Connect0 > FastEthernet0/24 to Switch1 > FastEthernet 0/24 2) Configured Switch 0 and Switch 1 enable configure terminal vlan 10 name Sales exit interface fastethernet0/1 switchport mode access switchport access vlan 10 exit interface fastethernet0/24 switchport mode trunk exit end write memory 3) Assigned Ips to PCs PC0 → Desktop → IP Configuration IP: 192.168.10.1 Subnet: 255.255.255.0 PC1 → Desktop → IP Configuration IP: 192.168.10.2 Subnet: 255.255.255.0 4) Tested connectivity Clicked on PC0 > Desktop > Command Prompt Run: 
 
 Ping 192.168.10.2 
 
+![screenshot](images/packet-tracer-ping.png)
+
 Self-Reflection: I initially had no clue what I was doing, but by breaking each step down, I successfully completed my first Packet Tracer lab and understood the logic behind basic network connectivity. This has made VLANs and switch configuration much less “intimidating.” 
+
 
 # **Lab 6** : MAC Address Table Lab Using Cisco Packet Tracer 
 
 ## **Objective** : 
-
-To demonstrate the learning behaviour of a switch and how MAC address tables are populated during device communication. 
+-pingch and how MAC address tables are populated during device communication. 
 
 ## **Steps Taken** : 
 
@@ -497,6 +524,10 @@ The switch successfully learned the MAC addresses of the connected devices and r
 
 Before this lab, I understood MAC addresses in theory. Now, I’ve seen them dynamically populate the switch's table in real-time, making the concept click. This exercise helped me connect command-line interaction to actual network behaviour. 
 
+
+![screenshot](images/packet-tracer-mac.png)
+
+
 # Lab 7: Understanding Physical Network Infrastructure 
 
 ## **1. What I Set Up:** 
@@ -518,6 +549,11 @@ In actual physical setups, cables are routed through patch panels and cable tray
 ## **4. Reflection:** 
 
 This lab helped bridge the gap between virtual setups and physical infrastructure. I’m starting to appreciate the hands-on, practical aspect of networking more and can now picture what setting up a small office network might look like. 
+
+
+![screenshot](images/basic-network.png)
+
+![screenshot](images/basic-ping.png)
 
 # Lab 8 Portfolio Entry – Troubleshooting & Monitoring 
 
@@ -547,6 +583,8 @@ Network troubleshooting using ping, tracert, logs, baselining, and jitter observ
 
 - **Insight** : This established the **baseline performance** of the network — stable and jitterfree. 
 
+![screenshot](images/ping-condition.png)
+
 ## **Part 2: Disrupted Conditions** 
 
 - **Command** : ping 8.8.8.8 -n 10 
@@ -558,6 +596,8 @@ Network troubleshooting using ping, tracert, logs, baselining, and jitter observ
    - 3x Request timed out. 
 
    - 100% packet loss. 
+
+![screenshot](images/ping-condition-2.png)
 
 **Insight** : 
 
@@ -571,7 +611,14 @@ Network troubleshooting using ping, tracert, logs, baselining, and jitter observ
 
 At first, I was uncertain about what jitter or request timeouts meant. By comparing a clean connection to a failed one, I now clearly understand how ping helps **troubleshoot connectivity** and identify **which part of the network is failing** . This hands-on use of the ping command helped tie together concepts from the first 5 weeks — from layers to routing to switching. 
 
+
+# Lab 9 Portfolio Entry – Bitlocker
+
 I reviewed BitLocker settings on my Windows host and noted how it encrypts the entire drive. I also explored recovery key storage options, which are crucial for secure but recoverable encryption.” 
+
+![screenshot](images/bitlocker.png)
+
+![screenshot](images/bitlocker-2.png)
 
 Simulate MFA on a Test Account 
 
@@ -583,15 +630,26 @@ Action: Created a new account, enabled 2-step verification via Authenticator, te
 
 Result: Successfully secured login; MFA prompt appeared as expected, showing added protection. 
 
-“In a lab, I configured a test Microsoft account with MFA. I demonstrated logging in from a secondary device, where I had to approve the sign-in via an authenticator app. This reinforced the value of MFA in preventing unauthorized access even if a password is compromised.” 
+Reflection: In this lab, I configured a test Microsoft account with MFA. I demonstrated logging in from a secondary device, where I had to approve the sign-in via an authenticator app. This re
+
+
+# Lab 10 Portfolio Entry – Printer 
 
 I simulated managing a printer by adding a virtual PDF printer and sending a print job from a secondary environment. This taught me about print queue monitoring and device management without needing physical hardware. 
 
 With my current device I configured Windows Hello PIN sign-in on my host system and verified successful login. I could then explain how Hello provides faster, more secure authentication compared to traditional passwords. 
 
-## Testing reachability across two LANs 
+![screenshot](images/printer.png)
+
+
+# Lab 11 Portfolio Entry – Testing reachibility across two LANs 
+
+![screenshot](images/LAN-1.png)
+
+![screenshot](images/LAN-2.png)
 
 I built a Packet Tracer lab titled _Testing Reachability Across Two LANs_ . The goal was to configure two subnets — one /24 and one /17 — and use a router to allow communication between them. I validated connectivity with pings, explained the ARP process, and documented the results. 
 
 The first ping from PC0 to PC2 failed due to the PC on LAN1 trying to communicate to something (PC2) through its gateway. I understand that doing a ping for the first time triggers ARP 
 
+``
